@@ -36,7 +36,7 @@ public class Borrower {
 	// address 추가(2022.03.10) by Woohang
 	private String address;
 	
-	// gender 추가(2022.03.14) by Woohang office(odm 샘플) odm810
+	// gender 추가(2022.03.14) by Woohang office(odm 샘플) 주석 머지
 	private String gender;
 
 	public Borrower() {
