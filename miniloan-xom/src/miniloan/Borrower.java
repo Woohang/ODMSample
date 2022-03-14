@@ -32,7 +32,7 @@ public class Borrower {
 	
 	private int age;
 	
-	// address 추가
+	// address 추가(2022.03.10) by Woohang
 	private String address;
 
 	public Borrower() {
