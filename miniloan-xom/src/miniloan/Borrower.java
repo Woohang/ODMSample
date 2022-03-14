@@ -30,7 +30,7 @@ public class Borrower {
 	@XmlElement	
     private int yearlyIncome;
 	
-	// age 주석
+	// age 주석(2022.03.14) by Woohang
 	private int age;
 	
 	// address 추가(2022.03.10) by Woohang
