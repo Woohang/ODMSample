@@ -9,6 +9,7 @@
 */
 
 package miniloan;
+
 //import to be able to use the annotations for the BOM
 import ilog.rules.bom.annotations.*;
 
@@ -19,48 +20,50 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-
 /**
  * This class models a loan request.
  *
- * A loan is created with an amount, a duration, and a rate.
- * By default, a loan request is considered as approved.
- * Then when the loan status is evaluated, the loan approval status
- * may be set to false, and messages may be attached to the loan request
- * to explain the rejection.
+ * A loan is created with an amount, a duration, and a rate. By default, a loan
+ * request is considered as approved. Then when the loan status is evaluated,
+ * the loan approval status may be set to false, and messages may be attached to
+ * the loan request to explain the rejection.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Loan {
-	@XmlElement	
-    private int amount;
-	@XmlElement	
-    private int duration;
-   private double yearlyInterestRate;
-    private int yearlyRepayment;
-    private boolean approved;
-     private Collection<String> messages;
+	@XmlElement
+	private int amount;
+	@XmlElement
+	private int duration;
+	private double yearlyInterestRate;
+	private int yearlyRepayment;
+	private boolean approved;
+	private Collection<String> messages;
+	private String comments;
 
 	/**
 	 * Builds an empty loan request.
 	 */
 	public Loan() {
-	   this.messages = new ArrayList<String>();
-       this.approved = true;
+		this.messages = new ArrayList<String>();
+		this.approved = true;
 	}
 
 	/**
-	 * Builds a loan request.
-	 * The parameters names to be used in the BOM are given with the annotation BusinessName
-	 * @param amount The requested amount of the loan.
-	 * @param duration The requested duration (in months) of the loan.
-	 * @param yearlyInterestRate The yearly base interest rate.
+	 * Builds a loan request. The parameters names to be used in the BOM are given
+	 * with the annotation BusinessName
+	 * 
+	 * @param amount
+	 *            The requested amount of the loan.
+	 * @param duration
+	 *            The requested duration (in months) of the loan.
+	 * @param yearlyInterestRate
+	 *            The yearly base interest rate.
 	 */
 	// property to tell in the BOM that this is the constructor for DVS
-	@CustomProperty(name = "dataio.default",
-			value = "true")
-	public Loan(@BusinessName("amount") int amount,@BusinessName("duration") int duration, 
+	@CustomProperty(name = "dataio.default", value = "true")
+	public Loan(@BusinessName("amount") int amount, @BusinessName("duration") int duration,
 			@BusinessName("yearlyInterestRate") double yearlyInterestRate) {
-	    this();
+		this();
 		this.amount = amount;
 		this.duration = duration;
 		this.yearlyInterestRate = yearlyInterestRate;
@@ -72,63 +75,79 @@ public class Loan {
 	public int getAmount() {
 		return amount;
 	}
+
 	/**
 	 * Sets the amount of the loan.
-	 * @param a The amount to set.
+	 * 
+	 * @param a
+	 *            The amount to set.
 	 */
 	public void setAmount(int a) {
 		amount = a;
 	}
+
 	/**
 	 * @return The approval status of the loan.
 	 */
 	// property to tell in the BOM that this property should be ignored
-	@CustomProperty(name = "factory.ignore",
-			value = "true")
+	@CustomProperty(name = "factory.ignore", value = "true")
 	public boolean isApproved() {
 		return approved;
 	}
+
 	/**
 	 * @return A string giving the approval status of the loan
 	 */
 	public String getApprovalStatus() {
 		return String.valueOf(approved) + " " + messages.toString();
 	}
+
 	/**
 	 * Sets the approval status of the loan.
-	 * @param approved The approval status to set.
+	 * 
+	 * @param approved
+	 *            The approval status to set.
 	 */
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
+
 	/**
 	 * Rejects the loan by setting the approval status to false.
 	 */
 	public void reject() {
 		this.approved = false;
 	}
+
 	/**
 	 * @return The duration of the loan (in months).
 	 */
 	public int getDuration() {
 		return duration;
 	}
+
 	/**
 	 * Sets the duration of the loan.
-	 * @param d The duration to set.
-	 */	
+	 * 
+	 * @param d
+	 *            The duration to set.
+	 */
 	public void setDuration(int d) {
 		duration = d;
 	}
+
 	/**
 	 * @return The yearly interest rate.
 	 */
 	public double getYearlyInterestRate() {
 		return yearlyInterestRate;
 	}
+
 	/**
 	 * Sets the yearly interest rate of the loan.
-	 * @param rate The rate to set.
+	 * 
+	 * @param rate
+	 *            The rate to set.
 	 */
 	public void setYearlyInterestRate(double rate) {
 		yearlyInterestRate = rate;
@@ -140,38 +159,55 @@ public class Loan {
 	public Collection<String> getMessages() {
 		return messages;
 	}
+
 	/**
 	 * Removes a message.
-	 * @param argument The message to remove.
+	 * 
+	 * @param argument
+	 *            The message to remove.
 	 */
-	public void removeFromMessages (String argument) {
+	public void removeFromMessages(String argument) {
 		messages.remove(argument);
 	}
+
 	/**
 	 * Adds a message.
-	 * @param argument The message to add.
+	 * 
+	 * @param argument
+	 *            The message to add.
 	 */
-	public void addToMessages (String argument) {
+	public void addToMessages(String argument) {
 		messages.add(argument);
 	}
+
 	/**
-	 * @return The yearly repayment.
-	 * The value is computed and cached when the other data is consistent.
+	 * @return The yearly repayment. The value is computed and cached when the other
+	 *         data is consistent.
 	 */
 	public int getYearlyRepayment() {
-	    if (yearlyRepayment == 0 && yearlyInterestRate != 0 && duration !=0 ) {
-		   this.yearlyRepayment = computeYearlyRepayment();
+		if (yearlyRepayment == 0 && yearlyInterestRate != 0 && duration != 0) {
+			this.yearlyRepayment = computeYearlyRepayment();
 		}
 		return yearlyRepayment;
 	}
+
 	/**
 	 * Computes the yearly repayment from the loan duration, amount, and rate.
+	 * 
 	 * @return The computed yearly repayment.
 	 */
 	private int computeYearlyRepayment() {
 		double i = yearlyInterestRate / 12;
 		double p = i * amount / (1 - Math.pow(1 + i, -duration));
 
-		return (int)(p * 12);
+		return (int) (p * 12);
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 }
