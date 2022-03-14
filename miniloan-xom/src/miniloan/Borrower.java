@@ -32,6 +32,7 @@ public class Borrower {
 	
 	private int age;
 	
+	// address 추가
 	private String address;
 
 	public Borrower() {
