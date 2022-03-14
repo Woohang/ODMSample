@@ -36,6 +36,7 @@ public class Borrower {
 	// address 추가(2022.03.10) by Woohang
 	private String address;
 	
+	// gender 추가
 	private String gender;
 
 	public Borrower() {
