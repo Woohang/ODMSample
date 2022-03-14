@@ -116,5 +116,13 @@ public class Borrower {
 	public String toString() {
 		return "Borrower [name=" + name + ", age=" + age + "]";
 	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	
 }
