@@ -107,4 +107,9 @@ public class Borrower {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	@Override
+	public String toString() {
+		return "Borrower [name=" + name + ", age=" + age + "]";
+	}
 }
