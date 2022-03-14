@@ -29,6 +29,8 @@ public class Borrower {
     private int creditScore;
 	@XmlElement	
     private int yearlyIncome;
+	
+	private int age;
 
 	public Borrower() {
 	}
@@ -86,5 +88,13 @@ public class Borrower {
 	 */
 	public void setYearlyIncome(int yearlyIncome) {
 		this.yearlyIncome = yearlyIncome;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 }
